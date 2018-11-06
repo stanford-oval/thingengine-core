@@ -732,7 +732,28 @@ function testTimerSequence(engine, conversation) {
     });
 }
 
+async function testConditionalMonitor(engine) {
+    const test = engine.devices.getDevice('org.thingpedia.builtin.test');
 
+    const app = await engine.apps.loadOneApp('now => { timer(base=makeDate(),interval=2s) => @org.thingpedia.builtin.test.eat_data(data="some data "); };',
+        {}, undefined, undefined, 'some app', 'some app description', true);
+
+    let what = await app.mainOutput.next();
+    assert(what.item.isDone);
+    what.resolve();
+
+    return new Promise((resolve, reject) => {
+        setImmediate(() => {
+            const apps = engine.apps.getAllApps();
+            assert.strictEqual(apps.length, 1);
+            assert.strictEqual(apps[0].name, 'Test');
+            assert.strictEqual(apps[0].description, 'consume “some data ” every 2 s');
+            engine.apps.removeApp(apps[0]);
+            //console.log();
+            resolve();
+        });
+    });
+}
 
 module.exports = async function testApps(engine) {
     assert.deepStrictEqual(engine.apps.getAllApps(), []);
@@ -754,6 +775,7 @@ module.exports = async function testApps(engine) {
     await testWhenRestart(engine);
     await testWhenErrorInit(engine);
     await testWhenErrorAsync(engine);
+    await testConditionalMonitor(engine);
 
     // these three must be exactly in this order
     await testGetSequence(engine);
