@@ -857,7 +857,7 @@ module.exports = async function testApps(engine) {
     await testSimpleDo(engine);
     await testDoError(engine);
     await testDoSay(engine);
-    await testDoAskQuestion(engine);
+    await testDoAskQuestion(engine, true);
     await testSimpleGet(engine);
     await testSimpleGet(engine, 'org.foo');
     await testGetGet(engine);
