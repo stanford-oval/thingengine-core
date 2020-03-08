@@ -25,7 +25,7 @@
     "thingpedia-discovery": "^1.0.0",
     "thingtalk": "~1.10.0-alpha.3",
     "uuid": "^3.1.0",
-    "ws": "^7.0.0"
+    "ws": "^7.2.2"
   },
   "scripts": {
     "update-pot": "./po/update-pot.sh",
