@@ -41,7 +41,7 @@
     "eslint": "^6.0.0",
     "jsdoc": "^3.6.3",
     "node-gettext": "^3.0.0",
-    "nyc": "^15.0.0",
+    "nyc": "15.0.1",
     "smtlib": "^0.1.1"
   },
   "greenkeeper": {
